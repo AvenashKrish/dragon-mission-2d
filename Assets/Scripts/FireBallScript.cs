@@ -19,4 +19,8 @@ public class FireBallScript : MonoBehaviour {
 
 	}
 
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
 }

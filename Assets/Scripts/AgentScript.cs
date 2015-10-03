@@ -8,6 +8,9 @@ public class AgentScript : MonoBehaviour
 
     public GameObject bulletObject;
 
+    private bool isDisabled = false;
+    private int timer = 0;
+
     // Use this for initialization
     void Start()
     {
@@ -19,15 +22,28 @@ public class AgentScript : MonoBehaviour
     {
         UpdateHealth();
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
-        transform.position += move * speed * Time.deltaTime;
-
-        if (Input.GetMouseButtonDown(0))
+        if (!isDisabled)
         {
-            Instantiate(bulletObject, gameObject.transform.position, bulletObject.transform.rotation);
-        }
+            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
+            transform.position += move * speed * Time.deltaTime;
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                Instantiate(bulletObject, gameObject.transform.position, bulletObject.transform.rotation);
+            }
+        }
+        
+        else
+        {
+            timer++;
+
+            if (timer == 100)
+            {
+                timer = 0;
+                isDisabled = false;
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -36,6 +52,16 @@ public class AgentScript : MonoBehaviour
         {
             health -= 10;
             Destroy(other.gameObject);
+        }
+
+        else if (other.gameObject.tag == "HealthyMushroom")
+        {
+            health += 10;
+        }
+
+        else if (other.gameObject.tag == "PoisonMushroom")
+        {
+            isDisabled = true;
         }
     }
 
