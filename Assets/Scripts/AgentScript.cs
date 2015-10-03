@@ -21,6 +21,11 @@ public class AgentScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health == 0)
+        {
+            Application.LoadLevel("GameEndScene");
+        }
+
         if (!isDisabled)
         {
             Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -57,7 +62,8 @@ public class AgentScript : MonoBehaviour
             }
             else
             {
-                Destroy(gameObject);
+                //Destroy(gameObject);
+                //Application.LoadLevel("GameEndScene");
             }            
         }
 

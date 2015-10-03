@@ -22,5 +22,10 @@ public class TimerScript : MonoBehaviour
         seconds -= Time.deltaTime;
 
         timerText.text = string.Format("{0}:{1}", (int)(seconds/60), (int)(seconds % 60));
+
+        if (seconds == 0)
+        {
+            Application.LoadLevel("GameEndScene");
+        }
     }
 }

@@ -16,6 +16,10 @@ public class DragonScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (health == 0)
+        {
+            Application.LoadLevel("GameEndScene");
+        }
 	}
 
 	void SpawnFireBall(){
