@@ -7,6 +7,7 @@ public class AgentScript : MonoBehaviour
     private int health = 100;
 
     public GameObject bulletObject;
+    public GameObject heartObject;
 
     private bool isDisabled = false;
     private int timer = 0;
@@ -14,14 +15,12 @@ public class AgentScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        UpdateHealth();
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateHealth();
-
         if (!isDisabled)
         {
             Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -50,25 +49,51 @@ public class AgentScript : MonoBehaviour
     {
         if (other.gameObject.tag == "FireBall")
         {
-            health -= 10;
             Destroy(other.gameObject);
+
+            if (health > 0)
+            {
+                health -= 20;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }            
         }
 
         else if (other.gameObject.tag == "HealthyMushroom")
         {
-            health += 10;
+            if (health < 100)
+            {
+                health += 20;
+            }
         }
 
         else if (other.gameObject.tag == "PoisonMushroom")
         {
             isDisabled = true;
         }
+
+        UpdateHealth();
     }
 
     void UpdateHealth()
     {
+        GameObject[] hearts = GameObject.FindGameObjectsWithTag("Heart");
+
+        foreach (GameObject item in hearts)
+        {
+            Destroy(item);
+        }
         
-        
+        int noOfHearts = health / 20;
+
+        float pos = -4;
+
+        for (int i = 0; i < noOfHearts; i++)
+        {
+            Instantiate(heartObject, new Vector3(pos += 0.5f, 5.0f), Quaternion.identity); 
+        }
     }
 
 }
