@@ -2,13 +2,14 @@
 using System.Collections;
 
 public class DragonScript : MonoBehaviour {
-
-	public GameObject fireBall;
+    
+    public GameObject fireBall;
+    private int health = 100;
 
 	// Use this for initialization
 	void Start () {
 	
-		InvokeRepeating ("SpawnFireBall", 1.0f, 3.0f);
+		InvokeRepeating ("SpawnFireBall", 1.0f, 2.0f);
 
 	}
 	
@@ -19,7 +20,21 @@ public class DragonScript : MonoBehaviour {
 
 	void SpawnFireBall(){
 
-		Instantiate (fireBall, gameObject.transform.position, fireBall.transform.rotation);
-
+        Instantiate(fireBall, gameObject.transform.position, fireBall.transform.rotation);
+        
+        if (health < 0)
+        {
+            Destroy(gameObject);
+        }
 	}
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Bullet")
+        {
+            health -= 5;
+            Destroy(other.gameObject);
+        }
+    }
+
 }

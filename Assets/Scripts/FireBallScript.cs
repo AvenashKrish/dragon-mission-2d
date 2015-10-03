@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FireBallScript : MonoBehaviour {
 
-	private float speed = 3.0f;
+	private float speed = 5.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -19,14 +19,4 @@ public class FireBallScript : MonoBehaviour {
 
 	}
 
-	void OnTriggerEnter2D(Collider2D other){
-		
-		if (other.gameObject.tag == "Player") {
-			
-			Destroy(gameObject);
-			Debug.Log("Trigger Enter");
-			
-		}
-		
-	}
 }
