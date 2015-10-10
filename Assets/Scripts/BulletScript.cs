@@ -15,7 +15,7 @@ public class BulletScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.Translate(speed * Time.deltaTime, 0, 0, Space.World);
+        //gameObject.transform.Translate(speed * Time.deltaTime, 0, 0, Space.World);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -29,6 +29,6 @@ public class BulletScript : MonoBehaviour
 
     void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }

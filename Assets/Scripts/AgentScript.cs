@@ -3,6 +3,8 @@ using System.Collections;
 
 public class AgentScript : MonoBehaviour
 {
+    Vector3 move;
+
     private float speed = 5.0f;
     private int health = 100;
 
@@ -28,14 +30,37 @@ public class AgentScript : MonoBehaviour
 
         if (!isDisabled)
         {
-            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            //Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));                      
 
-            transform.position += move * speed * Time.deltaTime;
-
-            if (Input.GetMouseButtonDown(0))
+            //transform.position += move * speed * Time.deltaTime;
+            
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                Instantiate(bulletObject, gameObject.transform.position, bulletObject.transform.rotation);
+                move = new Vector3(0, 2 * Time.deltaTime);
             }
+
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                move = new Vector3(0, -2 * Time.deltaTime);
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                move = new Vector3(-2 * Time.deltaTime, 0);
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                move = new Vector3(2 * Time.deltaTime, 0);
+            }
+
+            gameObject.transform.Translate(move);
+
+
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    Instantiate(bulletObject, gameObject.transform.position, bulletObject.transform.rotation);
+            //}
         }
         
         else
